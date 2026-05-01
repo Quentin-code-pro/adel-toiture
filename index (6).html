@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Tous Travaux Toitures – Adel Saadhellal, artisan couvreur-charpentier à Manosque (04100). Plus de 20 ans d'expérience. Rénovation, dépannage, zinguerie, entretien. Devis gratuit." />
+  <title>Tous Travaux Toitures – Artisan Couvreur à Manosque</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================
+       VARIABLES & RESET
+    ============================================ */
+    :root {
+      --anthracite:    #2C2F35;
+      --ardoise:       #4A5568;
+      --ardoise-light: #6B7280;
+      --brique:        #C0392B;
+      --brique-dark:   #A93226;
+      --terracotta:    #E07B54;
+      --creme:         #F7F3EF;
+      --blanc:         #FFFFFF;
+      --gris-clair:    #EAE6E1;
+      --ombre:         rgba(44,47,53,0.12);
+
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'Source Sans 3', Helvetica, sans-serif;
+
+      --radius:   10px;
+      --radius-lg: 18px;
+      --transition: 0.3s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--creme);
+      color: var(--anthracite);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    img { max-width: 100%; display: block; }
+    a   { text-decoration: none; color: inherit; }
+
+    /* ============================================
+       TYPOGRAPHY HELPERS
+    ============================================ */
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 5vw, 2.5rem);
+      font-weight: 900;
+      line-height: 1.2;
+      color: var(--anthracite);
+    }
+
+    .section-subtitle {
+      font-size: 1rem;
+      color: var(--ardoise-light);
+      margin-top: .5rem;
+      max-width: 540px;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--brique);
+      margin-bottom: .75rem;
+    }
+
+    /* ============================================
+       BOUTONS
+    ============================================ */
+    .btn {
+      display: inline-block;
+      padding: .85rem 2rem;
+      border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      border: none;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+    }
+
+    .btn-primary {
+      background: var(--brique);
+      color: var(--blanc);
+      box-shadow: 0 4px 18px rgba(192,57,43,.35);
+    }
+    .btn-primary:hover {
+      background: var(--brique-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(192,57,43,.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--blanc);
+      border: 2px solid rgba(255,255,255,.6);
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,.1);
+      border-color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* ============================================
+       ANIMATIONS (scroll-triggered via JS)
+    ============================================ */
+    .animate-up {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity .65s ease, transform .65s ease;
+    }
+    .animate-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Délais en cascade */
+    .delay-1 { transition-delay: .1s; }
+    .delay-2 { transition-delay: .2s; }
+    .delay-3 { transition-delay: .3s; }
+    .delay-4 { transition-delay: .4s; }
+
+    /* ============================================
+       NAVBAR
+    ============================================ */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: var(--anthracite);
+      padding: 0 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 62px;
+      box-shadow: 0 2px 16px rgba(0,0,0,.3);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+
+    .nav-logo-icon {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+    }
+
+    .nav-logo-text {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--blanc);
+      line-height: 1.15;
+    }
+
+    .nav-logo-text span {
+      display: block;
+      font-family: var(--font-body);
+      font-size: .65rem;
+      font-weight: 500;
+      letter-spacing: .08em;
+      color: var(--terracotta);
+      text-transform: uppercase;
+    }
+
+    .nav-cta {
+      background: var(--brique);
+      color: var(--blanc);
+      font-weight: 700;
+      font-size: .85rem;
+      padding: .5rem 1.1rem;
+      border-radius: var(--radius);
+      transition: background var(--transition), transform var(--transition);
+      white-space: nowrap;
+    }
+    .nav-cta:hover {
+      background: var(--brique-dark);
+      transform: translateY(-1px);
+    }
+
+    /* ============================================
+       HERO
+    ============================================ */
+    #accueil {
+      margin-top: 62px; /* hauteur navbar */
+      background: linear-gradient(145deg, var(--anthracite) 0%, #3D444F 55%, #4A5568 100%);
+      position: relative;
+      overflow: hidden;
+      padding: 4rem 1.25rem 5rem;
+      text-align: center;
+    }
+
+    /* Motif géométrique de fond (tuiles stylisées) */
+    #accueil::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          135deg,
+          rgba(255,255,255,.03) 0px,
+          rgba(255,255,255,.03) 1px,
+          transparent 1px,
+          transparent 40px
+        ),
+        repeating-linear-gradient(
+          45deg,
+          rgba(255,255,255,.03) 0px,
+          rgba(255,255,255,.03) 1px,
+          transparent 1px,
+          transparent 40px
+        );
+      pointer-events: none;
+    }
+
+    /* Accent couleur brique en bas */
+    #accueil::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--brique), var(--terracotta), var(--brique));
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.2);
+      color: #E8D5B0;
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      padding: .4rem 1rem;
+      border-radius: 50px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-badge svg {
+      width: 14px; height: 14px;
+      fill: var(--terracotta);
+      flex-shrink: 0;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 7vw, 3.4rem);
+      font-weight: 900;
+      color: var(--blanc);
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-title em {
+      font-style: normal;
+      color: var(--terracotta);
+    }
+
+    .hero-desc {
+      color: rgba(255,255,255,.75);
+      font-size: 1.05rem;
+      max-width: 500px;
+      margin: 0 auto 2rem;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .9rem;
+      justify-content: center;
+    }
+
+    /* Flèche décorative vers le bas */
+    .hero-arrow {
+      margin: 3rem auto 0;
+      width: 32px;
+      height: 32px;
+      border-right: 2px solid rgba(255,255,255,.3);
+      border-bottom: 2px solid rgba(255,255,255,.3);
+      transform: rotate(45deg);
+      animation: arrowBounce 1.6s ease infinite;
+    }
+
+    @keyframes arrowBounce {
+      0%, 100% { transform: rotate(45deg) translateY(0); opacity: .4; }
+      50%       { transform: rotate(45deg) translateY(8px); opacity: 1; }
+    }
+
+    /* ============================================
+       SECTIONS COMMUNES
+    ============================================ */
+    .section {
+      padding: 4.5rem 1.25rem;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 2.75rem;
+    }
+
+    /* ============================================
+       PRESTATIONS
+    ============================================ */
+    #prestations {
+      background: var(--blanc);
+    }
+
+    .prestations-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .prestation-card {
+      background: var(--creme);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 1.5rem;
+      border-left: 4px solid var(--brique);
+      box-shadow: 0 2px 16px var(--ombre);
+      transition: transform var(--transition), box-shadow var(--transition);
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+    }
+
+    .prestation-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px var(--ombre);
+    }
+
+    .prestation-icon {
+      width: 52px;
+      height: 52px;
+      background: var(--anthracite);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .prestation-icon svg {
+      width: 26px;
+      height: 26px;
+      fill: none;
+      stroke: var(--terracotta);
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .prestation-body h3 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: .4rem;
+      color: var(--anthracite);
+    }
+
+    .prestation-body p {
+      font-size: .93rem;
+      color: var(--ardoise);
+    }
+
+    /* ============================================
+       À PROPOS
+    ============================================ */
+    #apropos {
+      background: var(--anthracite);
+      color: var(--blanc);
+    }
+
+    #apropos .section-title { color: var(--blanc); }
+    #apropos .section-subtitle { color: rgba(255,255,255,.6); max-width: 100%; }
+    #apropos .section-label { color: var(--terracotta); }
+
+    .apropos-inner {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .apropos-lead {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,.85);
+      margin-top: 1.25rem;
+      margin-bottom: 2rem;
+      line-height: 1.75;
+    }
+
+    .apropos-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .apropos-item {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: .85rem;
+    }
+
+    .apropos-item-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .apropos-item-text {
+      font-size: .9rem;
+      color: rgba(255,255,255,.8);
+      font-weight: 500;
+    }
+
+    .apropos-signature {
+      margin-top: 2.25rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,.12);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .apropos-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--brique);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .apropos-name {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--blanc);
+    }
+
+    .apropos-name span {
+      display: block;
+      font-family: var(--font-body);
+      font-size: .8rem;
+      font-weight: 400;
+      color: rgba(255,255,255,.5);
+    }
+
+    /* ============================================
+       CONTACT
+    ============================================ */
+    #contact {
+      background: var(--creme);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .contact-card {
+      background: var(--blanc);
+      border-radius: var(--radius-lg);
+      padding: 1.6rem 1.5rem;
+      box-shadow: 0 2px 14px var(--ombre);
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .contact-card-icon {
+      width: 46px;
+      height: 46px;
+      background: var(--anthracite);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-card-icon svg {
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: var(--terracotta);
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .contact-card-label {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ardoise-light);
+      margin-bottom: .25rem;
+    }
+
+    .contact-card-value {
+      font-size: .98rem;
+      font-weight: 600;
+      color: var(--anthracite);
+    }
+
+    .contact-card-sub {
+      font-size: .83rem;
+      color: var(--ardoise-light);
+      margin-top: .2rem;
+    }
+
+    .horaires-list {
+      margin-top: .35rem;
+    }
+
+    .horaires-list li {
+      display: flex;
+      justify-content: space-between;
+      font-size: .88rem;
+      padding: .2rem 0;
+      border-bottom: 1px dashed var(--gris-clair);
+      color: var(--ardoise);
+      list-style: none;
+    }
+
+    .horaires-list li:last-child { border-bottom: none; }
+
+    .horaires-list li strong {
+      color: var(--anthracite);
+      font-weight: 600;
+    }
+
+
+
+    /* ============================================
+       BANDEAU ZONES
+    ============================================ */
+    .zones-banner {
+      background: var(--brique);
+      color: var(--blanc);
+      text-align: center;
+      padding: 1.25rem 1.25rem;
+    }
+
+    .zones-banner p {
+      font-size: .92rem;
+      font-weight: 600;
+    }
+
+    .zones-banner strong {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    /* ============================================
+       FOOTER
+    ============================================ */
+    footer {
+      background: var(--anthracite);
+      color: rgba(255,255,255,.45);
+      text-align: center;
+      padding: 1.75rem 1.25rem;
+      font-size: .82rem;
+    }
+
+    footer strong {
+      color: rgba(255,255,255,.75);
+    }
+
+    /* ============================================
+       RESPONSIVE ≥ 640px (tablette / desktop)
+    ============================================ */
+    @media (min-width: 640px) {
+      .prestations-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+
+    }
+
+    @media (min-width: 900px) {
+      #accueil {
+        padding: 6rem 2rem 7rem;
+      }
+
+      .section {
+        padding: 6rem 2rem;
+      }
+
+      .prestations-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- ============================================
+     NAVBAR
+============================================ -->
+<nav id="navbar" role="navigation" aria-label="Navigation principale">
+  <a href="#accueil" class="nav-logo" aria-label="Accueil – Tous Travaux Toitures">
+    <!-- Icône toit SVG inline -->
+    <svg class="nav-logo-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <polygon points="18,4 34,20 2,20" fill="#C0392B"/>
+      <rect x="7" y="20" width="22" height="12" rx="1" fill="#4A5568"/>
+      <rect x="14" y="24" width="8" height="8" rx="1" fill="#E07B54"/>
+    </svg>
+    <div class="nav-logo-text">
+      Tous Travaux Toitures
+      <span>Artisan Couvreur · Manosque</span>
+    </div>
+  </a>
+  <a href="https://www.allovoisins.com/p/toustravauxtoitures" target="_blank" rel="noopener noreferrer" class="nav-cta">Demander un devis</a>
+</nav>
+
+<!-- ============================================
+     HERO / ACCUEIL
+============================================ -->
+<section id="accueil" aria-label="Accueil">
+  <div class="hero-badge animate-up">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 7l10 5 10-5-10-5zm0 13L2 10v2l10 5 10-5v-2l-10 5z"/></svg>
+    Plus de 20 ans d'expérience
+  </div>
+
+  <h1 class="hero-title animate-up delay-1">
+    Votre toiture,<br>
+    <em>protégée pour durer.</em>
+  </h1>
+
+  <p class="hero-desc animate-up delay-2">
+    Couverture, charpente, zinguerie, dépannage et entretien — Adel Saadhellal intervient en Provence avec soin et transparence.
+  </p>
+
+  <div class="hero-cta-group animate-up delay-3">
+    <a href="https://www.allovoisins.com/p/toustravauxtoitures" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Obtenir un devis gratuit</a>
+    <a href="#prestations" class="btn btn-outline">Voir mes prestations</a>
+  </div>
+
+  <div class="hero-arrow animate-up delay-4" aria-hidden="true"></div>
+</section>
+
+<!-- ============================================
+     PRESTATIONS
+============================================ -->
+<section id="prestations" class="section" aria-label="Mes prestations">
+  <div class="section-header">
+    <span class="section-label animate-up">Ce que je fais</span>
+    <h2 class="section-title animate-up delay-1">Mes Prestations</h2>
+    <p class="section-subtitle animate-up delay-2" style="margin:0 auto;">
+      Du chantier complet à l'intervention express, chaque travail est réalisé avec le même niveau d'exigence.
+    </p>
+  </div>
+
+  <div class="prestations-grid">
+
+    <!-- Carte 1 : Rénovation & Charpente -->
+    <article class="prestation-card animate-up delay-1">
+      <div class="prestation-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 12L12 3l9 9"/>
+          <polyline points="9 21 9 12 15 12 15 21"/>
+          <line x1="5" y1="21" x2="19" y2="21"/>
+        </svg>
+      </div>
+      <div class="prestation-body">
+        <h3>Rénovation &amp; Charpente</h3>
+        <p>Remplacement de charpente vieillissante, réfection de toiture de A à Z, pose de tuiles et ardoises. Chaque projet traité avec rigueur.</p>
+      </div>
+    </article>
+
+    <!-- Carte 2 : Dépannage & Fuites -->
+    <article class="prestation-card animate-up delay-2">
+      <div class="prestation-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="13 2 13 9 20 9"/>
+          <path d="M20 14.5V7l-5-5H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h7"/>
+          <path d="M16 20h6M19 17v6"/>
+        </svg>
+      </div>
+      <div class="prestation-body">
+        <h3>Dépannage &amp; Fuites</h3>
+        <p>Intervention rapide sur tuiles cassées, plaques fissurées, infiltrations et problèmes d'étanchéité. Diagnostic gratuit sur site.</p>
+      </div>
+    </article>
+
+    <!-- Carte 3 : Zinguerie & Velux -->
+    <article class="prestation-card animate-up delay-3">
+      <div class="prestation-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <line x1="3" y1="9" x2="21" y2="9"/>
+          <line x1="3" y1="15" x2="21" y2="15"/>
+          <line x1="9" y1="3" x2="9" y2="21"/>
+          <line x1="15" y1="3" x2="15" y2="21"/>
+        </svg>
+      </div>
+      <div class="prestation-body">
+        <h3>Zinguerie &amp; Velux</h3>
+        <p>Pose de fenêtres de toit (Velux et autres marques), installation de gouttières en zinc, PVC ou cuivre. Finitions soignées, sans bavure.</p>
+      </div>
+    </article>
+
+    <!-- Carte 4 : Entretien & Nettoyage -->
+    <article class="prestation-card animate-up delay-4">
+      <div class="prestation-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      </div>
+      <div class="prestation-body">
+        <h3>Entretien &amp; Nettoyage</h3>
+        <p>Démoussage, traitement hydrofuge, nettoyage haute pression de toiture et façade avec produits professionnels. Prolongez la vie de votre toit.</p>
+      </div>
+    </article>
+
+  </div><!-- /prestations-grid -->
+</section>
+
+<!-- ============================================
+     À PROPOS
+============================================ -->
+<section id="apropos" class="section" aria-label="À propos">
+  <div class="apropos-inner">
+    <div class="section-header" style="text-align:left;">
+      <span class="section-label animate-up">Qui suis-je ?</span>
+      <h2 class="section-title animate-up delay-1">Artisan de confiance,<br>travail de qualité.</h2>
+    </div>
+
+    <p class="apropos-lead animate-up delay-2">
+      Adel Saadhellal est artisan auto-entrepreneur couvreur-charpentier depuis plus de 20 ans. Basé à Manosque, il intervient dans tout le département 04 et les départements voisins. Sa philosophie : un travail soigné, des matériaux sélectionnés avec soin, une communication claire avec le client et des <strong style="color:var(--terracotta);">devis gratuits et sans engagement</strong>.
+    </p>
+
+    <div class="apropos-grid animate-up delay-3">
+      <div class="apropos-item">
+        <span class="apropos-item-icon">🏆</span>
+        <span class="apropos-item-text">+ de 20 ans d'expérience terrain</span>
+      </div>
+      <div class="apropos-item">
+        <span class="apropos-item-icon">📋</span>
+        <span class="apropos-item-text">Devis gratuit &amp; sans engagement</span>
+      </div>
+      <div class="apropos-item">
+        <span class="apropos-item-icon">💰</span>
+        <span class="apropos-item-text">Prix accessibles, travail honnête</span>
+      </div>
+      <div class="apropos-item">
+        <span class="apropos-item-icon">📍</span>
+        <span class="apropos-item-text">Déplacements 04 · 13 · 83 · 84</span>
+      </div>
+    </div>
+
+    <div class="apropos-signature animate-up delay-4">
+      <div class="apropos-avatar" aria-hidden="true">A</div>
+      <div>
+        <div class="apropos-name">
+          Adel Saadhellal
+          <span>Artisan Couvreur-Charpentier · Auto-entrepreneur</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     BANDEAU ZONES D'INTERVENTION
+============================================ -->
+<div class="zones-banner" role="complementary" aria-label="Zones d'intervention">
+  <p>🗺️ Zone d'intervention : <strong>04 (Alpes-de-Haute-Provence) · 13 (Bouches-du-Rhône) · 83 (Var) · 84 (Vaucluse)</strong></p>
+</div>
+
+<!-- ============================================
+     CONTACT
+============================================ -->
+<section id="contact" class="section" aria-label="Contact et informations pratiques">
+  <div class="section-header">
+    <span class="section-label animate-up">Me contacter</span>
+    <h2 class="section-title animate-up delay-1">Contact &amp; Infos pratiques</h2>
+    <p class="section-subtitle animate-up delay-2" style="margin:0 auto;">
+      Un projet, une fuite, une question ? Demandez votre devis gratuit sans engagement.
+    </p>
+  </div>
+
+  <div class="contact-grid">
+
+    <!-- Localisation -->
+    <div class="contact-card animate-up delay-1">
+      <div class="contact-card-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+      </div>
+      <div>
+        <div class="contact-card-label">Localisation</div>
+        <div class="contact-card-value">Manosque (04100)</div>
+        <div class="contact-card-sub">Provence-Alpes-Côte d'Azur</div>
+      </div>
+    </div>
+
+    <!-- Horaires -->
+    <div class="contact-card animate-up delay-2" style="flex-direction:column; align-items:flex-start;">
+      <div style="display:flex; align-items:center; gap:1rem; margin-bottom:.75rem;">
+        <div class="contact-card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <div>
+          <div class="contact-card-label">Horaires d'intervention</div>
+          <div class="contact-card-value">7j/7</div>
+        </div>
+      </div>
+      <ul class="horaires-list" style="width:100%;">
+        <li><strong>Lun – Ven</strong> <span>07h00 – 18h30</span></li>
+        <li><strong>Samedi</strong>    <span>07h00 – 16h00</span></li>
+        <li><strong>Dimanche</strong>  <span>07h30 – 12h00</span></li>
+      </ul>
+    </div>
+
+    <!-- Carte AlloVoisins – pleine largeur -->
+    <div class="contact-card animate-up delay-3" style="
+      grid-column: 1 / -1;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1.25rem;
+      background: var(--anthracite);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem 1.75rem;
+    ">
+      <!-- Icône messagerie -->
+      <div style="
+        width: 64px; height: 64px;
+        background: var(--brique);
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 4px 20px rgba(192,57,43,.4);
+        flex-shrink: 0;
+      " aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="30" height="30" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+        </svg>
+      </div>
+
+      <div>
+        <div class="contact-card-label" style="color: var(--terracotta);">Demander un devis</div>
+        <div class="contact-card-value" style="color: #fff; font-size: 1.15rem; margin-bottom: .5rem;">
+          Contactez Adel via AlloVoisins
+        </div>
+        <p style="color: rgba(255,255,255,.6); font-size: .9rem; max-width: 400px; margin: 0 auto;">
+          Son profil professionnel est sur AlloVoisins. Envoyez-lui un message directement — il vous répond rapidement pour convenir d'un rendez-vous et établir votre devis <strong style="color:var(--terracotta);">gratuit</strong>.
+        </p>
+      </div>
+
+      <a
+        href="https://www.allovoisins.com/p/toustravauxtoitures"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-primary"
+        style="font-size: 1.05rem; padding: 1rem 2.5rem;"
+      >
+        Envoyer un message sur AlloVoisins
+      </a>
+    </div>
+
+  </div><!-- /contact-grid -->
+
+
+
+</section>
+
+<!-- ============================================
+     FOOTER
+============================================ -->
+<footer>
+  <p>
+    © <span id="year"></span> <strong>Tous Travaux Toitures</strong> — Adel Saadhellal, Artisan Couvreur-Charpentier<br>
+    Manosque (04100) · Interventions dans les départements 04, 13, 83 et 84<br>
+    <small>Site réalisé pour faciliter la mise en relation — Devis gratuit, sans engagement</small>
+  </p>
+</footer>
+
+<!-- ============================================
+     SCRIPTS
+============================================ -->
+<script>
+  /* Année dynamique dans le footer */
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* === Intersection Observer : animation au scroll === */
+  (function () {
+    var elements = document.querySelectorAll('.animate-up');
+
+    if (!('IntersectionObserver' in window)) {
+      // Fallback pour navigateurs anciens
+      elements.forEach(function (el) { el.classList.add('visible'); });
+      return;
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    elements.forEach(function (el) { observer.observe(el); });
+  })();
+
+  /* === Navbar : changement d'opacité au scroll === */
+  (function () {
+    var navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 60) {
+        navbar.style.boxShadow = '0 4px 24px rgba(0,0,0,.45)';
+      } else {
+        navbar.style.boxShadow = '0 2px 16px rgba(0,0,0,.3)';
+      }
+    }, { passive: true });
+  })();
+</script>
+
+</body>
+</html>
